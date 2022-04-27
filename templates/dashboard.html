@@ -1,0 +1,171 @@
+{% extends "layout.html" %} 
+<title>{% block title %}Dashboard{% endblock %}</title> {% block content %}
+<link href="{{ url_for('static', filename='/dashboard.css') }}" rel="stylesheet">
+
+
+<div class="main">
+    <div class ="topbar">
+      <div class="toggle">
+        <span>☰</span>
+      </div>
+      <div class="pageName">
+        <p>Dashboard</p>
+      </div>
+
+    </div>
+    <div class="cardBox">
+      <div class="card">
+        <div>
+          {% if average == None %}
+          <div class="numbers">No Data</div>
+          {% else %}
+          <div class="numbers">{{average}}</div>
+          {% endif %}
+          <div class="cardName">Average Sentiment</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-dashboard avg"></i>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="numbers">{{positive}}</div>
+          <div class="cardName">Positive Tweets</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-caret-up pos"></i>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="numbers">{{neutral}}</div>
+          <div class="cardName">Neutral Tweets</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-minus neu"></i>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="numbers">{{negative}}</div>
+          <div class="cardName">Negative Tweets</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-caret-down neg"></i>
+        </div>
+      </div>
+    </div>
+
+
+  <div class="cardBox">
+    <div class="card">
+      <div>
+        {% if average == None %}
+        <div class="numbers">No Data</div>
+        {% else %}
+        <div class="numbers">{{ most_symbol_avg}}</div>
+        {% endif %}
+        <div class="cardName">Best Average Sentiment</div>
+      </div>
+      <div class="iconBx">
+        <i class = "fa fa-caret-up pos"></i>
+      </div>
+    </div>
+    <div class="card">
+      <div>
+        {% if average == None %}
+        <div class="numbers">No Data</div>
+        {% else %}
+        <div class="numbers">{{least_symbol_avg}}</div>
+        {% endif %}
+        <div class="cardName">Worst Average Sentiment</div>
+      </div>
+      <div class="iconBx">
+        <i class = "fa fa-caret-down neg"></i>
+      </div>
+    </div>
+    <div class="card">
+      <div>
+        <div class="numbers">{{most_symbol}}</div>
+        <div class="cardName">Most mentions</div>
+      </div>
+      <div class="iconBx">
+        <i class = "fa fa-caret-up pos"></i>
+      </div>
+    </div>
+    <div class="card">
+      <div>
+        <div class="numbers">{{least_symbol}}</div>
+        <div class="cardName">Least mentions</div>
+      </div>
+      <div class="iconBx">
+        <i class = "fa fa-caret-down neg"></i>
+      </div>
+    </div>
+ 
+  </div>
+
+    <div class="stockTable">
+      <div class="stockList">
+        <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" >
+            <thead>
+              <tr>
+                <th>Stock Symbol</th>
+                <th>Stock Name</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" >
+            <tbody>
+              {% for stock in stocks%}
+              <tr>
+                <td>{{stock.symbol}}</td>
+                <td><a href="/dashboard/{{stock.symbol}}" style="text-decoration: none; color: #232b2b;">{{stock.name}}</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="piechart">
+        <div class="cardHeader">
+          <h2>Combined Sentiment of Stocks in Table</h2>
+        </div>
+        <canvas id="myChart"></canvas>
+        <script>
+          const ctx = document.getElementById('myChart').getContext('2d');
+          const myChart = new Chart(ctx, {
+              type: 'pie',
+              data: {
+                labels: {{labels | safe}},
+                  datasets: [{
+                    data: {{values | safe}},
+                      backgroundColor: [
+                      'rgba(242, 38, 19,0.8)',
+                      'rgba(0, 177, 106, 1)',
+                      'rgba(108, 122, 137, 0.8)'
+                      ],
+                      borderColor: [
+                      'rgba(242, 38, 19,1)',
+                      'rgba(0, 177, 106, 1)',
+                      'rgba(108, 122, 137, 1)'
+                      ],
+                      
+                  }]
+              },
+              options: {
+                  responsive: false,
+              }
+            
+          });
+          
+          
+        </script>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

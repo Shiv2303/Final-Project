@@ -1,0 +1,203 @@
+{% extends "layout.html" %} <title>{% block title %}Stock Information{% endblock %}</title>{% block content %}
+<link href="{{ url_for('static', filename='/stockinfo.css') }}" rel="stylesheet">
+
+<base href="/dashboard/{{stock.symbol}}/"/>
+
+<div class="main">
+    <div class ="topbar">
+      <div class="toggle">
+        <span>☰</span>
+      </div>
+      <div class="pageName">
+        <p>{{stock.name}} ({{ stock.symbol}}) <a class = "comp" href="dashboard/">+Compare</a>
+      </p>
+      </div>
+
+    </div>
+    <div class="cardBox">
+      <div class="card">
+        <div>
+          {% if average == None %}
+          <div class="numbers">No Data</div>
+          {% else %}
+          <div class="numbers">{{average}}</div>
+          {% endif %}
+          <div class="cardName">Average Sentiment</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-dashboard avg"></i>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="numbers">{{positive}}</div>
+          <div class="cardName">Positive Tweets</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-caret-up pos"></i>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="numbers">{{neutral}}</div>
+          <div class="cardName">Neutral Tweets</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-minus neu"></i>
+        </div>
+      </div>
+      <div class="card">
+        <div>
+          <div class="numbers">{{negative}}</div>
+          <div class="cardName">Negative Tweets</div>
+        </div>
+        <div class="iconBx">
+          <i class = "fa fa-caret-down neg"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="stockPrice">
+        <div class="stockList">
+            <div class="tbl-header">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Open</th>
+                        <th>High</th>
+                        <th>Low</th>
+                        <th>Close</th>
+                        <th>Volume</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="tbl-content">
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                    {% for bar in bars %}
+                    <tr>
+            
+            
+                        <td>{{ bar.dates }}</td>
+            
+                        {% if bar.open > bar.close %}
+                        <td>
+                            <p style="color:green"> {{ bar.open }}</p>
+                        </td>
+                        {% elif bar.open
+                        < bar.close %} <td>
+                            <p style="color:red"> {{ bar.open }}</p>
+                            </td>
+            
+                            {%else%}
+                            <td>
+                                <p style="color:grey"> {{ bar.open }}</p>
+                            </td>
+                            {% endif %}
+                            <td>
+                                <p style="color: green"> {{ bar.high }} </p>
+                            </td>
+                            <td>
+                                <p style="color: red"> {{ bar.low }} </p>
+                            </td>
+            
+                            {% if bar.open
+                            < bar.close %} <td>
+                                <p style="color:green"> {{ bar.close }}</p>
+                                </td>
+                                {%elif bar.open > bar.close %}
+                                <td>
+                                    <p style="color:red"> {{ bar.close }}</p>
+                                </td>
+                                {%else%}
+                                <td>
+                                    <p style="color:grey"> {{ bar.close }}</p>
+                                </td>
+                                {% endif %}
+            
+                                <td>
+                                    <p style="color:gray">{{ bar.volume }}
+                                    </p>
+                                </td>
+            
+            
+                                {% endfor %}
+                    </tr>
+                    
+                </tbody>
+            </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="stockTable">
+        <div class="stockList">
+            <div class="tbl-header">
+                <table class = "price" cellpadding="0" cellspacing="0" border="0">
+                  <thead>
+                    <tr>
+                        <th>TimeStamp</th>
+                        <th>Number Of Tweets</th>
+                        <th>Polarity</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="tbl-content">
+                <table class = "price" cellpadding="0" cellspacing="0" border="0">
+                  <tbody>
+                    {% for tweet in compare%}          
+                    <tr>
+                        <td>{{tweet.times}}</td>
+                        <td>{{tweet.s}}</td>
+                        <td>{{tweet.p}}</td>
+                    </tr>
+                      {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+
+        <div class="piechart">
+          <div class="cardHeader">
+            <h2>Sentiment For {{stock.symbol}} As A Percentage </h2>
+          </div>
+          <canvas id="myChart"></canvas>
+          <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: {{labels | safe}},
+                    datasets: [{
+                        data: {{values | safe}},
+                        backgroundColor: [
+                        'rgba(242, 38, 19,0.8)',
+                        'rgba(0, 177, 106, 1)',
+                        'rgba(108, 122, 137, 0.8)'
+                        ],
+                        borderColor: [
+                        'rgba(242, 38, 19,1)',
+                        'rgba(0, 177, 106, 1)',
+                        'rgba(108, 122, 137, 1)'
+                        ],
+                        
+                    }]
+                },
+                options: {
+                    responsive: false,
+                }
+              
+            });
+            
+            
+          </script>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

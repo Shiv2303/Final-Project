@@ -1,0 +1,74 @@
+{% extends "layout.html" %}{% block content %}
+<link href="{{ url_for('static', filename='/tweets.css') }}" rel="stylesheet">
+
+
+<div class="main">
+    <div class ="topbar">
+      <div class="toggle">
+        <span>☰</span>
+      </div>
+      <div class="pageName">
+        <p>Tweets</p>
+      </div>
+     </div> 
+
+     <table class="tweets-table">
+      <thead>
+          <tr>
+              <th>TimeStamp</th>
+              <th>Tweet</th>
+              <th>Polarity</th>
+              <th>Sentiment</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for tweet in tweets %}
+          <tr>
+  
+              <td>{{tweet.Times}}</td>
+              <td>{{tweet.Text}}</td>
+              {% if tweet.Polarity > 0.05 %}
+              <td >
+                  <p style="color:#0FFF50"> {{ tweet.Polarity }} </p>
+              </td>
+              {% elif tweet.Polarity
+              < -0.05 %} <td >
+                  <p style="color:red"> {{ tweet.Polarity }}</p>
+                  </td>
+                  {% else %}
+                  <td >
+                      <p style="color:grey"> {{ tweet.Polarity }}</p>
+                  </td>
+                  {% endif %}
+                  <!--if statments ended for polarity-->
+  
+                  {% if tweet.Sentiment == "Positive"%}
+                  <td>
+                      <p style="color:#0FFF50"> {{ tweet.Sentiment }} </p>
+                  </td>
+                  {% elif tweet.Sentiment == "Negative"%}
+                  <td >
+                      <p style="color:red"> {{ tweet.Sentiment }} </p>
+                  </td>
+                  {% else %}
+                  <td>
+                      <p style="color:grey"> {{ tweet.Sentiment }}</p>
+                  </td>
+  
+                  {% endif %}
+                  <!--if statments ended for sentiment-->
+  
+          </tr>
+  
+          {% endfor %}
+  
+      </tbody>
+  </table>
+</div>
+
+
+
+
+{% endblock %}
+
+    

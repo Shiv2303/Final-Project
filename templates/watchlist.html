@@ -1,0 +1,72 @@
+{% extends "layout.html" %} <title>{% block title %}compare To {% endblock %}</title> {% block content %}
+<link href="{{ url_for('static', filename='/watchlist.css') }}" rel="stylesheet">
+
+<div class="main">
+    <div class ="topbar">
+      <div class="toggle">
+        <span>☰</span>
+      </div>
+      <div class="pageName">
+        <p>Watchlist</p>
+      </div>
+      
+</div>
+  <br>
+    <form method = "POST" action="">
+      <div class = 'dropdown'>
+    <label for="stock" >Choose Stock Symbol To Add To Watchlist:</label>
+    <select name="request_stock" id="request_stock" style="font-weight: 400; font-size: 15px;">
+        {% for row in rows %}
+        <option value="{{row.symbol}}">{{row.symbol}}</option>
+        {% endfor %}
+    </select>
+    <button class ="add" type="submit">Add To Watchlist</button>
+  </div>
+    
+</form>
+
+<div class="stockPrice">
+  <div class="stockList">
+      <div class="tbl-header">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+              <tr>
+                  <th>Stock Symbol</th>
+                  
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div class="tbl-content">
+          <table cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+              {% for symbol in symbols %}
+              <tr>
+                <td><a href="/dashboard/{{symbol.symbol}}" style="text-decoration: none; color: black;">{{symbol.symbol}}</a></td>
+                <td> <button class = 'delete' type = "button" onClick="remove({{ symbol.id }})"> Remove </button></td>
+              {% endfor %}
+              </tr>
+              
+          </tbody>
+      </table>
+      </div>
+
+  </div>
+</div>
+<!--small script tha allows for removall of stocks from watchlist-->
+<script>
+  function remove(watchlistId) {
+  fetch("/removefromwatchlist", {
+    method: "POST",
+    body: JSON.stringify({ watchlistId: watchlistId }),
+  }).then((_res) => {
+    window.location.href = "/watchlist";
+  });
+}
+
+  
+</script>
+  
+</div>
+
+{% endblock %}

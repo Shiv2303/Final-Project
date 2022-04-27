@@ -1,0 +1,40 @@
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.tweets-table {
+    margin-left: auto;
+    table-layout: fixed;
+    width: auto;
+    overflow-y: auto;
+    border-collapse: collapse;
+    
+}
+
+
+ th {
+    padding: 5px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 15px;
+    color: #232b2b;}
+td{
+    padding: 5px ;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 400;
+    font-size: 15px;
+    color: #232b2b;
+    border-bottom: solid 0.5px rgba(220,220,220,0.5);    
+}
+
+@media (max-width:660px){
+
+    .tweets-table{
+        width: 100%;
+        overflow-x: none;
+    }
+}

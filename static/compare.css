@@ -1,0 +1,36 @@
+
+.gridBox{
+  position: relative;
+  width: 100%;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 30px;
+  
+}
+
+.gridBox .grid{
+  position: relative;
+  background: whitesmoke;
+  padding: 20px;
+  width: 100%;
+
+
+}
+ .cardBox{
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(1,1fr);
+
+ }
+ 
+
+@media (max-width:830px){
+
+  .gridBox{
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+
+  }
+
+}

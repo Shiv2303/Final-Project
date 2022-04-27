@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, intial-scale=1.0">
+    <link href="{{ url_for('static', filename='/layout.css') }}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!--script for icons-->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"><!--script for fonts-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js" integrity="sha256-Y26AMvaIfrZ1EQU49pf6H4QzVTrOI8m9wQYKkftBt4s=" crossorigin="anonymous"></script> <!--script for charts.js-->
+    </head>
+    <body>
+       
+        <div class="cointainer">
+            <div class="navigation">
+                <ul>
+
+                    <li>
+                        <a href="">
+                            <i class="fa fa-pie-chart icons"></i>
+                            <span class="title">Sentiment Viewer</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/dashboard">
+                            <i class="fa fa-home icons"></i>
+                            <span class="title">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/tweets">
+                            <i class="fa fa-twitter icons"></i>
+                            <span class="title">Tweets</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/watchlist">
+                            <i class="fa fa-bookmark icons"></i>
+                            <span class="title">Watchlist</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/signout">
+                            <i class="fa fa-sign-out icons"></i>
+                            <span class="title">Signout</span>
+                        </a>
+                    </li>
+
+                </ul>  
+
+            </div>
+
+            {% block content %} {% endblock %}
+
+        </div>
+
+        <script>
+            let toggle = document.querySelector('.toggle');
+            let navigation = document.querySelector('.navigation');
+            let main = document.querySelector('.main');
+            toggle.onclick = function()
+            {
+                navigation.classList.toggle('active');
+                main.classList.toggle('active');
+
+            }
+
+        </script>
+
+
+    
+    </body>
+
+
+
+</html>

@@ -1,0 +1,84 @@
+*{  
+  font-family:system-ui;
+  
+}
+.stockPrice{
+    position: relative;
+    width: 70%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 10px;
+   }
+  
+  .stockPrice .stockList{
+    position: relative;
+    display: grid;
+    min-height: 100px;
+    max-height: 1000px;
+    padding: 20px;
+    box-shadow: 0 1px 5px 0 rgba(0,0,0,0.08);
+    border-radius: 10px;
+    background: white;
+  }
+  table{
+    width:100%;
+    table-layout: fixed;  
+  
+  }
+  th{
+    padding: 10px 15px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 15px;
+    background: grey;
+    color: white;
+  }
+  
+   td{
+    padding: 15px;
+    text-align: left;
+    vertical-align:middle;
+    font-weight: 400;
+    font-size: 15px;
+    color: #232b2b;
+    background-color: white;
+    border-bottom: solid 1px rgba(1,1,1,0.1);
+  }
+
+.dropdown{
+  padding: 20px;
+}
+.delete{
+  padding: 8px 16px;
+  display: inline-block;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background: red;
+  cursor: pointer;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.08);
+}
+.add{
+  padding: 5px 10px;
+  display: inline-block;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background:gray;
+  cursor: pointer;
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.08);
+}
+
+label{
+  font-weight: 400;
+}
+select{
+  width: 90px;
+  padding: 2px;
+
+}

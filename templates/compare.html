@@ -1,0 +1,193 @@
+{% extends "layout.html" %} <title>{% block title %}compare To {% endblock %}</title> {% block content %}
+<link href="{{ url_for('static', filename='/compare.css') }}" rel="stylesheet">
+
+<div class="main">
+    <div class ="topbar">
+      <div class="toggle">
+        <span>☰</span>
+      </div>
+      <div class="pageName">
+        <p>Comparison of {{ stock.symbol }} to {{ stock2.symbol }}</p>
+      </div>
+    </div>
+    <div class="gridBox">
+      <div class="grid">
+        <div class="cardHeader">
+          <h2>Sentiment For {{stock.symbol}} </h2>
+        </div>
+
+          <div class="cardBox2">
+            <div class="cardBox">
+                <div class="card">
+                  <div>
+                    {% if average == None %}
+                    <div class="numbers">No Data</div>
+                    {% else %}
+                    <div class="numbers">{{average}}</div>
+                    {% endif %}
+                    <div class="cardName">Average Sentiment</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-dashboard avg"></i>
+                  </div>
+                </div>
+                <div class="card">
+                  <div>
+                    <div class="numbers">{{positive}}</div>
+                    <div class="cardName">Positive Tweets</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-caret-up pos"></i>
+                  </div>
+                </div>
+                <div class="card">
+                  <div>
+                    <div class="numbers">{{neutral}}</div>
+                    <div class="cardName">Neutral Tweets</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-minus neu"></i>
+                  </div>
+                </div>
+                <div class="card">
+                  <div>
+                    <div class="numbers">{{negative}}</div>
+                    <div class="cardName">Negative Tweets</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-caret-down neg"></i>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+        <div class="piechart">
+          <div class="cardHeader">
+            <h2>Sentiment For {{stock.symbol}} As A Percentage </h2>
+          </div>
+          <canvas id="Chart2"></canvas>
+          <script>
+            const ctx = document.getElementById('Chart2').getContext('2d');
+            const Chart2 = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: {{labels | safe}},
+                    datasets: [{
+                        data: {{values | safe}},
+                        backgroundColor: [
+                        'rgba(242, 38, 19,0.8)',
+                        'rgba(0, 177, 106, 1)',
+                        'rgba(108, 122, 137, 0.8)'
+                        ],
+                        borderColor: [
+                        'rgba(242, 38, 19,1)',
+                        'rgba(0, 177, 106, 1)',
+                        'rgba(108, 122, 137, 1)'
+                        ],
+                        
+                    }]
+                },
+                options: {
+                    responsive: false,
+                }
+              
+            });
+            
+            
+          </script>
+        </div>
+        
+      </div>
+      
+
+      <div class="grid">
+        <div class="cardHeader">
+          <h2>Sentiment For {{stock2.symbol}} </h2>
+        </div>
+
+          <div class="cardBox2">
+            <div class="cardBox">
+                <div class="card">
+                  <div>
+                    {% if average1 == None %}
+                    <div class="numbers">No Data</div>
+                    {% else %}
+                    <div class="numbers">{{average1}}</div>
+                    {% endif %}
+                    <div class="cardName">Average Sentiment</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-dashboard avg"></i>
+                  </div>
+                </div>
+                <div class="card">
+                  <div>
+                    <div class="numbers">{{positive1}}</div>
+                    <div class="cardName">Positive Tweets</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-caret-up pos"></i>
+                  </div>
+                </div>
+                <div class="card">
+                  <div>
+                    <div class="numbers">{{neutral1}}</div>
+                    <div class="cardName">Neutral Tweets</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-minus neu"></i>
+                  </div>
+                </div>
+                <div class="card">
+                  <div>
+                    <div class="numbers">{{negative1}}</div>
+                    <div class="cardName">Negative Tweets</div>
+                  </div>
+                  <div class="iconBx">
+                    <i class = "fa fa-caret-down neg"></i>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+        <div class="piechart">
+          <div class="cardHeader">
+            <h2>Sentiment For {{stock2.symbol}} As A Percentage </h2>
+          </div>
+          <canvas id="myChart"></canvas>
+          <script>
+            const myChart = new Chart(document.getElementById('myChart'), {
+                type: 'pie',
+                data: {
+                    labels: {{labels1 | safe}},
+                    datasets: [{
+                        data: {{values1 | safe}},
+                        backgroundColor: [
+                        'rgba(242, 38, 19,0.8)',
+                        'rgba(0, 177, 106, 1)',
+                        'rgba(108, 122, 137, 0.8)'
+                        ],
+                        borderColor: [
+                        'rgba(242, 38, 19,1)',
+                        'rgba(0, 177, 106, 1)',
+                        'rgba(108, 122, 137, 1)'
+                        ],
+                        
+                    }]
+                },
+                options: {
+                    responsive: false,
+                }
+              
+            });
+            
+            
+          </script>
+        </div>
+        
+      </div>
+    
+  </div>
+</div>
+
+  {% endblock %}

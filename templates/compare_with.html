@@ -1,0 +1,54 @@
+{% extends "layout.html" %} <title>{% block title %}compare To {% endblock %}</title> {% block content %}
+
+<base href="/dashboard/{{stock.symbol}}/dashboard/"/>
+<link href="{{ url_for('static', filename='/stockinfo.css') }}" rel="stylesheet">
+
+
+<div class="main">
+  <div class ="topbar">
+    <div class="toggle">
+      <span>☰</span>
+    </div>
+    <div class="pageName">
+      <p>Choose Stock to Compare To {{ stock.symbol }}</p>
+    </div>
+
+  </div>
+  
+      <div class="stockPrice">
+        <div class="stockList">
+   
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <thead>
+                <tr>
+                  <th>Stock Symbol</th>
+                  <th>Stock Name</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tbody>
+                {% for stock in stock2%}
+                <tr>
+                    <td>{{stock.symbol}}</td>
+                    <td><a href="{{stock.symbol}}" style="text-decoration: none; color:black;">{{stock.name}}</a></td>
+                </tr>
+
+                {% endfor %}
+    
+        
+        
+            </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+      </di>
+
+        
+
+{% endblock %}
